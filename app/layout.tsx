@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "Vintage Chupiteria — Stradella",
+  title: "Vineria Stradella — Enoteca, Stradella (PV)",
   description:
-    "Chupiteria, cocktail bar, ristorante e nightlife nel cuore di Stradella (PV).",
+    "Vineria Stradella: enoteca, wine bar e aperitivi nel centro di Stradella (PV). Selezione vini, taglieri e atmosfera conviviale.",
 };
 
 export default function RootLayout({
