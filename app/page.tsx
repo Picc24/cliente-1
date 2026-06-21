@@ -1,74 +1,37 @@
-const WHATSAPP_NUMBER = "390000000000"; // sostituire con numero reale del locale
-const WHATSAPP_MSG = "Ciao! Vorrei prenotare un tavolo da Vintage Chupiteria";
+const PHONE_DISPLAY = "0385 781564";
+const PHONE_TEL = "+390385781564";
+const WHATSAPP_NUMBER = "390385781564"; // telefono fisso del locale, usato su richiesta del cliente
+const WHATSAPP_MSG = "Ciao! Vorrei prenotare un tavolo da Vineria Stradella";
 const WA_HREF = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   WHATSAPP_MSG
 )}`;
+const EMAIL = "infovineriastradella@gmail.com";
+const ADDRESS = "Corso XXVI Aprile 81, 27049 Stradella (PV)";
 
-type MenuItem = { name: string; price: string };
-type MenuGroup = { id: string; title: string; note?: string; items: MenuItem[] };
+type ExperienceCard = { title: string; text: string };
 
-const MENU: MenuGroup[] = [
+const ABOUT_CARDS: ExperienceCard[] = [
   {
-    id: "shot",
-    title: "Shot & Amari",
-    items: [
-      { name: "Amari (tutta la selezione)", price: "€4" },
-      { name: "Jägermeister", price: "€4" },
-      { name: "Limoncello", price: "€4" },
-    ],
+    title: "Vino",
+    text: "Un'ampia selezione di etichette italiane, tra tradizione e proposte più di ricerca, oltre a vini sfusi serviti al calice.",
   },
   {
-    id: "cocktail",
-    title: "Cocktail Principali",
-    items: [
-      { name: "Mojito", price: "€7" },
-      { name: "Caipiroska", price: "€7" },
-      { name: "Moscow Mule", price: "€7" },
-      { name: "Gin Tonic", price: "€7" },
-      { name: "Spritz", price: "€7" },
-      { name: "Negroni", price: "€7" },
-    ],
+    title: "Taglieri",
+    text: "Salumi e formaggi selezionati, serviti in taglieri pensati per essere condivisi a tavola con calma.",
   },
   {
-    id: "premium",
-    title: "Premium Drink",
-    items: [
-      { name: "Vodka premium", price: "€10" },
-      { name: "Gin premium", price: "€8–15" },
-      { name: "Rum premium", price: "€6–10" },
-      { name: "Whisky", price: "€6–9" },
-    ],
-  },
-  {
-    id: "food",
-    title: "Food",
-    items: [
-      { name: "Hamburger", price: "€12–20" },
-      { name: "Sfizioserie", price: "€10–18" },
-      { name: "Dolci", price: "€6" },
-    ],
-  },
-  {
-    id: "birre",
-    title: "Birre",
-    items: [{ name: "Selezione birre", price: "€3–5" }],
-  },
-  {
-    id: "vini",
-    title: "Vini e Bollicine",
-    items: [
-      { name: "Calice", price: "€5–7" },
-      { name: "Bottiglia", price: "€25–120" },
-    ],
+    title: "Atmosfera",
+    text: "Un locale raccolto nel centro di Stradella, dove il personale è attento e l'ambiente resta conviviale tutta la sera.",
   },
 ];
 
-type EventItem = { day: string; title: string; time: string };
+type ScheduleRow = { days: string; hours: string[] };
 
-const EVENTS: EventItem[] = [
-  { day: "Giovedì", title: "Chupiteria Night — Shot & Beats", time: "21:00 — 02:00" },
-  { day: "Venerdì", title: "DJ Set Live", time: "22:00 — 03:00" },
-  { day: "Sabato", title: "Vintage Saturday Night", time: "22:00 — 03:00" },
+const SCHEDULE: ScheduleRow[] = [
+  { days: "Martedì — Giovedì", hours: ["11:00–15:00", "18:00–00:00"] },
+  { days: "Venerdì — Sabato", hours: ["11:00–15:00", "18:00–02:00"] },
+  { days: "Domenica", hours: ["11:00–15:00", "18:00–01:00"] },
+  { days: "Lunedì", hours: ["Chiuso"] },
 ];
 
 export default function Home() {
@@ -78,13 +41,13 @@ export default function Home() {
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
-          background: #0a0a0c;
-          color: #f3eee6;
+          background: #16100d;
+          color: #f3ece3;
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
           -webkit-font-smoothing: antialiased;
         }
         a { color: inherit; text-decoration: none; }
-        :focus-visible { outline: 2px solid #ff2fb8; outline-offset: 3px; }
+        :focus-visible { outline: 2px solid #7a1f2b; outline-offset: 3px; }
 
         .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
@@ -92,7 +55,7 @@ export default function Home() {
         .nav {
           position: fixed; top: 0; left: 0; right: 0; z-index: 50;
           padding: 20px 0;
-          background: linear-gradient(to bottom, rgba(10,10,12,0.92), transparent);
+          background: linear-gradient(to bottom, rgba(22,16,13,0.92), transparent);
         }
         .nav-inner { display: flex; align-items: center; justify-content: space-between; }
         .nav-mark {
@@ -103,13 +66,13 @@ export default function Home() {
           letter-spacing: 0.02em;
           color: #fff;
         }
-        .nav-mark span { color: #ff2fb8; }
+        .nav-mark span { color: #c9a13b; }
         .nav-links { display: none; gap: 28px; }
         .nav-link {
           font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
-          text-transform: uppercase; color: #b8b0a6;
+          text-transform: uppercase; color: #c2b7aa;
         }
-        .nav-link:hover { color: #00e5ff; }
+        .nav-link:hover { color: #c9a13b; }
         .nav-cta {
           display: inline-flex; align-items: center; gap: 6px;
           padding: 10px 18px; border-radius: 999px;
@@ -126,9 +89,9 @@ export default function Home() {
           position: relative;
           overflow: hidden;
           background:
-            radial-gradient(ellipse 70% 50% at 20% 10%, rgba(255,47,184,0.22), transparent 60%),
-            radial-gradient(ellipse 60% 50% at 90% 30%, rgba(0,229,255,0.16), transparent 65%),
-            #0a0a0c;
+            radial-gradient(ellipse 70% 50% at 20% 10%, rgba(122,31,43,0.30), transparent 60%),
+            radial-gradient(ellipse 60% 50% at 90% 30%, rgba(201,161,59,0.16), transparent 65%),
+            #16100d;
         }
         .hero-grid {
           position: absolute; inset: 0; opacity: 0.5; pointer-events: none;
@@ -141,7 +104,7 @@ export default function Home() {
         .hero-content { position: relative; z-index: 2; }
         .hero-eyebrow {
           font-size: 12px; font-weight: 700; letter-spacing: 0.22em;
-          text-transform: uppercase; color: #00e5ff;
+          text-transform: uppercase; color: #c9a13b;
         }
         .hero-title {
           font-family: Georgia, "Times New Roman", serif;
@@ -153,10 +116,10 @@ export default function Home() {
           margin-top: 16px;
           color: #fff;
         }
-        .hero-title em { color: #ff2fb8; font-style: italic; }
+        .hero-title em { color: #7a1f2b; font-style: italic; }
         .hero-sub {
           margin-top: 22px; font-size: 17px; line-height: 1.65;
-          color: #b8b0a6; max-width: 480px;
+          color: #c2b7aa; max-width: 480px;
         }
         .hero-tagrow {
           margin-top: 28px; display: flex; gap: 10px; flex-wrap: wrap;
@@ -166,7 +129,7 @@ export default function Home() {
           padding: 6px 14px; border-radius: 999px;
           border: 1px solid rgba(255,255,255,0.16);
           font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-          text-transform: uppercase; color: #f3eee6;
+          text-transform: uppercase; color: #f3ece3;
         }
         .hero-ctas { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
 
@@ -178,15 +141,15 @@ export default function Home() {
           border: 1px solid transparent;
         }
         .btn-wa { background: #25d366; color: #06150c; }
-        .btn-outline { border-color: rgba(255,255,255,0.22); color: #f3eee6; }
-        .btn-outline:hover { border-color: #00e5ff; color: #00e5ff; }
+        .btn-outline { border-color: rgba(255,255,255,0.22); color: #f3ece3; }
+        .btn-outline:hover { border-color: #c9a13b; color: #c9a13b; }
 
         /* ── sections ── */
         .section { padding: 88px 0; position: relative; }
-        .section-alt { background: #111014; }
+        .section-alt { background: #1f1712; }
         .eyebrow {
           font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
-          text-transform: uppercase; color: #ff2fb8;
+          text-transform: uppercase; color: #7a1f2b;
         }
         .section-title {
           font-family: Georgia, "Times New Roman", serif;
@@ -199,10 +162,10 @@ export default function Home() {
         }
         .section-text {
           margin-top: 18px; font-size: 16px; line-height: 1.75;
-          color: #b8b0a6; max-width: 600px;
+          color: #c2b7aa; max-width: 600px;
         }
 
-        /* ── about ── */
+        /* ── about / esperienza (griglia 3 card) ── */
         .about-grid {
           margin-top: 48px;
           display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
@@ -211,14 +174,14 @@ export default function Home() {
           border-radius: 10px;
           overflow: hidden;
         }
-        .about-card { background: #0a0a0c; padding: 30px 26px; }
+        .about-card { background: #16100d; padding: 30px 26px; }
         .about-card h3 {
           font-family: Georgia, serif; font-style: italic; font-size: 19px;
-          color: #00e5ff; margin-bottom: 8px;
+          color: #c9a13b; margin-bottom: 8px;
         }
-        .about-card p { font-size: 14px; line-height: 1.6; color: #b8b0a6; }
+        .about-card p { font-size: 14px; line-height: 1.6; color: #c2b7aa; }
 
-        /* ── menu ── */
+        /* ── menu / selezione vini & taglieri (stesso pattern menu-group, senza prezzi) ── */
         .menu-nav {
           display: flex; gap: 10px; flex-wrap: wrap; margin-top: 44px; margin-bottom: 48px;
         }
@@ -226,34 +189,22 @@ export default function Home() {
           padding: 9px 16px; border-radius: 999px;
           border: 1px solid rgba(255,255,255,0.15);
           font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
-          text-transform: uppercase; color: #b8b0a6;
+          text-transform: uppercase; color: #c2b7aa;
         }
-        .menu-nav a:hover { border-color: #ff2fb8; color: #ff2fb8; }
+        .menu-nav a:hover { border-color: #7a1f2b; color: #7a1f2b; }
 
         .menu-group { padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.1); }
         .menu-group:first-of-type { border-top: none; padding-top: 0; }
         .menu-group-title {
           font-family: Georgia, serif; font-style: italic; font-weight: 700;
-          font-size: 26px; color: #fff; margin-bottom: 22px;
+          font-size: 26px; color: #fff; margin-bottom: 18px;
         }
-        .menu-group-title span { color: #ff2fb8; }
-        .menu-items { display: grid; grid-template-columns: 1fr; gap: 0; }
-        .menu-row {
-          display: flex; align-items: baseline; gap: 14px;
-          padding: 13px 0;
-          border-bottom: 1px dashed rgba(255,255,255,0.12);
-        }
-        .menu-row:last-child { border-bottom: none; }
-        .menu-row-name { font-size: 16px; color: #f3eee6; }
-        .menu-row-fill {
-          flex: 1; border-bottom: 1px dotted rgba(255,255,255,0.18);
-          transform: translateY(-4px);
-        }
-        .menu-row-price {
-          font-weight: 700; font-size: 16px; color: #00e5ff; white-space: nowrap;
+        .menu-group-title span { color: #7a1f2b; }
+        .menu-group-text {
+          font-size: 16px; line-height: 1.75; color: #c2b7aa; max-width: 640px;
         }
 
-        /* ── eventi ── */
+        /* ── eventi / esperienza extra (riusa lo stesso pattern a righe) ── */
         .events-list { margin-top: 44px; display: flex; flex-direction: column; }
         .event-row {
           display: grid; grid-template-columns: 110px 1fr auto;
@@ -263,43 +214,77 @@ export default function Home() {
         .events-list .event-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
         .event-day {
           font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
-          text-transform: uppercase; color: #ff2fb8;
+          text-transform: uppercase; color: #7a1f2b;
         }
         .event-title {
           font-family: Georgia, serif; font-style: italic; font-weight: 700;
           font-size: clamp(18px, 2.4vw, 24px); color: #fff;
         }
-        .event-time { font-size: 13px; color: #b8b0a6; white-space: nowrap; }
+        .event-time { font-size: 13px; color: #c2b7aa; white-space: nowrap; }
 
-        /* ── info ── */
+        /* ── galleria (pattern grafico CSS, nessuna immagine reale) ── */
+        .gallery-grid {
+          margin-top: 44px;
+          display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+        }
+        .gallery-tile {
+          aspect-ratio: 4 / 5;
+          border-radius: 10px;
+          border: 1px solid rgba(255,255,255,0.1);
+          position: relative;
+          overflow: hidden;
+          display: flex; align-items: flex-end;
+          padding: 16px;
+        }
+        .gallery-tile span {
+          font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+          text-transform: uppercase; color: rgba(243,236,227,0.7);
+        }
+        .gallery-tile.t1 { background: radial-gradient(ellipse 90% 70% at 30% 20%, rgba(122,31,43,0.55), transparent 70%), #1f1712; }
+        .gallery-tile.t2 { background: radial-gradient(ellipse 90% 70% at 70% 30%, rgba(201,161,59,0.35), transparent 70%), #1f1712; }
+        .gallery-tile.t3 { background: radial-gradient(ellipse 90% 70% at 50% 80%, rgba(122,31,43,0.40), transparent 70%), #1f1712; }
+        .gallery-tile.t4 { background: radial-gradient(ellipse 90% 70% at 20% 80%, rgba(201,161,59,0.30), transparent 70%), #1f1712; }
+        .gallery-tile.t5 { background: radial-gradient(ellipse 90% 70% at 80% 20%, rgba(122,31,43,0.45), transparent 70%), #1f1712; }
+        .gallery-tile.t6 { background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(201,161,59,0.40), transparent 70%), #1f1712; }
+
+        /* ── orari / info ── */
         .info-grid {
           margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
           background: rgba(255,255,255,0.08);
           border: 1px solid rgba(255,255,255,0.08);
           border-radius: 10px; overflow: hidden;
         }
-        .info-card { background: #111014; padding: 28px 26px; }
+        .info-card { background: #1f1712; padding: 28px 26px; }
         .info-label {
           font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-          text-transform: uppercase; color: #00e5ff; margin-bottom: 8px;
+          text-transform: uppercase; color: #c9a13b; margin-bottom: 8px;
         }
-        .info-value { font-size: 15px; line-height: 1.7; color: #f3eee6; }
+        .info-value { font-size: 15px; line-height: 1.7; color: #f3ece3; }
+
+        .schedule-list { display: flex; flex-direction: column; gap: 0; }
+        .schedule-row {
+          display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+          padding: 8px 0;
+        }
+        .schedule-row + .schedule-row { border-top: 1px dashed rgba(255,255,255,0.12); }
+        .schedule-days { font-size: 13px; font-weight: 700; color: #f3ece3; }
+        .schedule-hours { font-size: 13px; color: #c2b7aa; text-align: right; }
 
         /* ── prenota ── */
         .book-box {
           margin-top: 44px;
           display: flex; flex-wrap: wrap; align-items: center; gap: 26px;
           padding: 34px; border-radius: 12px;
-          border: 1px solid rgba(255,47,184,0.3);
-          background: radial-gradient(ellipse 80% 100% at 0% 0%, rgba(255,47,184,0.12), transparent 70%), #111014;
+          border: 1px solid rgba(122,31,43,0.35);
+          background: radial-gradient(ellipse 80% 100% at 0% 0%, rgba(122,31,43,0.18), transparent 70%), #1f1712;
         }
-        .book-text { font-size: 14px; color: #b8b0a6; line-height: 1.7; }
+        .book-text { font-size: 14px; color: #c2b7aa; line-height: 1.7; }
 
         /* ── footer ── */
         .footer {
           border-top: 1px solid rgba(255,255,255,0.1);
           padding: 30px 0; text-align: center;
-          font-size: 12px; color: #6f675e;
+          font-size: 12px; color: #7a7064;
         }
 
         .float-wa {
@@ -312,6 +297,7 @@ export default function Home() {
         @media (max-width: 720px) {
           .about-grid { grid-template-columns: 1fr; }
           .info-grid { grid-template-columns: 1fr; }
+          .gallery-grid { grid-template-columns: repeat(2, 1fr); }
           .event-row { grid-template-columns: 1fr; gap: 8px; }
           .event-time { text-align: left; }
         }
@@ -321,13 +307,14 @@ export default function Home() {
       <nav className="nav">
         <div className="wrap nav-inner">
           <span className="nav-mark">
-            Vintage <span>Chupiteria</span>
+            Vineria <span>Stradella</span>
           </span>
           <div className="nav-links">
             <a className="nav-link" href="#about">Chi siamo</a>
-            <a className="nav-link" href="#menu">Menu</a>
-            <a className="nav-link" href="#eventi">Eventi</a>
-            <a className="nav-link" href="#info">Info</a>
+            <a className="nav-link" href="#vini">Vini</a>
+            <a className="nav-link" href="#aperitivi">Aperitivi</a>
+            <a className="nav-link" href="#orari">Orari</a>
+            <a className="nav-link" href="#contatti">Contatti</a>
           </div>
           <a className="nav-cta" href={WA_HREF} target="_blank" rel="noopener noreferrer">
             Prenota
@@ -335,25 +322,25 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* ───────── HERO ───────── */}
+      {/* ───────── 1. HERO ───────── */}
       <header className="hero">
         <div className="hero-grid" aria-hidden="true" />
         <div className="wrap hero-content">
           <p className="hero-eyebrow">Stradella (PV) — Lombardia</p>
           <h1 className="hero-title">
-            Vintage
+            Vineria
             <br />
-            <em>Chupiteria</em>
+            <em>Stradella</em>
           </h1>
           <p className="hero-sub">
-            Chupiteria, cocktail bar, ristorante e nightlife sotto lo stesso tetto.
-            Shot, drink d&apos;autore e serate che si accendono dopo cena.
+            Wine shop &amp; more: enoteca, aperitivi e cena informale nel cuore di
+            Stradella. Un buon calice e un tagliere, senza fretta.
           </p>
           <div className="hero-tagrow">
-            <span className="pill">Chupiteria</span>
-            <span className="pill">Cocktail Bar</span>
-            <span className="pill">Ristorante</span>
-            <span className="pill">Nightlife</span>
+            <span className="pill">Enoteca</span>
+            <span className="pill">Aperitivi</span>
+            <span className="pill">Taglieri</span>
+            <span className="pill">Cena informale</span>
           </div>
           <div className="hero-ctas">
             <a className="btn btn-wa" href={WA_HREF} target="_blank" rel="noopener noreferrer">
@@ -362,131 +349,172 @@ export default function Home() {
               </svg>
               Prenota su WhatsApp
             </a>
-            <a className="btn btn-outline" href="#menu">Vedi il menu</a>
+            <a className="btn btn-outline" href="#vini">Scopri la cantina</a>
           </div>
         </div>
       </header>
 
-      {/* ───────── ABOUT ───────── */}
+      {/* ───────── 2. CHI SIAMO ───────── */}
       <section id="about" className="section">
         <div className="wrap">
           <span className="eyebrow">Chi siamo</span>
-          <h2 className="section-title">Tre anime, un solo locale</h2>
+          <h2 className="section-title">Un'enoteca nel centro di Stradella</h2>
           <p className="section-text">
-            Vintage Chupiteria nasce a Stradella per unire tre esperienze in una sola
-            serata: si parte come chupiteria, si continua come cocktail bar e
-            ristorante, si finisce in nightlife. Un format pensato per chi vuole
-            cambiare ritmo senza cambiare posto.
+            Vineria Stradella è un wine shop &amp; more in Corso XXVI Aprile: un
+            locale raccolto dove fermarsi per un calice durante il giorno o per
+            un aperitivo conviviale la sera. Selezione di etichette, taglieri
+            curati e un servizio attento sono il cuore dell'esperienza.
           </p>
 
           <div className="about-grid">
-            <div className="about-card">
-              <h3>Chupiteria</h3>
-              <p>Shot e amari serviti veloci, perfetti per aprire la serata in compagnia.</p>
+            {ABOUT_CARDS.map((c) => (
+              <div className="about-card" key={c.title}>
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───────── 3. SELEZIONE VINI ───────── */}
+      <section id="vini" className="section section-alt">
+        <div className="wrap">
+          <span className="eyebrow">Selezione vini</span>
+          <h2 className="section-title">La cantina di Vineria Stradella</h2>
+          <p className="section-text">
+            Una carta dei vini pensata per accompagnare ogni momento della
+            giornata, dal calice veloce all'ora di pranzo alla bottiglia
+            condivisa la sera. Etichette selezionate con attenzione, accanto a
+            proposte sfuse per chi cerca un buon bicchiere senza troppi fronzoli.
+          </p>
+        </div>
+      </section>
+
+      {/* ───────── 4. APERITIVI E TAGLIERI ───────── */}
+      <section id="aperitivi" className="section">
+        <div className="wrap">
+          <span className="eyebrow">Aperitivi &amp; taglieri</span>
+          <h2 className="section-title">L'aperitivo, fatto con calma</h2>
+          <p className="section-text">
+            Taglieri di salumi e formaggi selezionati, pensati per accompagnare
+            un calice di vino in buona compagnia. L'aperitivo da Vineria
+            Stradella è un momento conviviale, senza buffet impersonali: solo
+            prodotti curati e tempo per godersela.
+          </p>
+        </div>
+      </section>
+
+      {/* ───────── 5. ESPERIENZA DEL LOCALE ───────── */}
+      <section className="section section-alt">
+        <div className="wrap">
+          <span className="eyebrow">L'esperienza</span>
+          <h2 className="section-title">Perché tornare da Vineria Stradella</h2>
+          <p className="section-text">
+            Chi ci ha visitato racconta di un ambiente accogliente e di un
+            servizio attento, in un locale piccolo ma curato nei dettagli — il
+            posto giusto per un aperitivo tra amici o una cena informale senza
+            fretta.
+          </p>
+
+          <div className="events-list">
+            <div className="event-row">
+              <span className="event-day">Servizio</span>
+              <span className="event-title">Personale attento e disponibile</span>
+              <span className="event-time">Sempre</span>
             </div>
-            <div className="about-card">
-              <h3>Cocktail Bar &amp; Ristorante</h3>
-              <p>Drink classici e premium, hamburger e sfizioserie per cena tra amici.</p>
+            <div className="event-row">
+              <span className="event-day">Ambiente</span>
+              <span className="event-title">Atmosfera conviviale e raccolta</span>
+              <span className="event-time">Pranzo &amp; sera</span>
             </div>
-            <div className="about-card">
-              <h3>Nightlife</h3>
-              <p>DJ set e serate a tema che accendono Stradella dal giovedì al sabato.</p>
+            <div className="event-row">
+              <span className="event-day">Format</span>
+              <span className="event-title">Enoteca, aperitivo e cena informale</span>
+              <span className="event-time">Mar–Dom</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ───────── MENU ───────── */}
-      <section id="menu" className="section section-alt">
+      {/* ───────── 6. GALLERIA ───────── */}
+      <section className="section">
         <div className="wrap">
-          <span className="eyebrow">Il menu</span>
-          <h2 className="section-title">Tutto quello che serviamo</h2>
+          <span className="eyebrow">Galleria</span>
+          <h2 className="section-title">Un'idea dell'atmosfera</h2>
           <p className="section-text">
-            Dagli shot ai drink premium, dall&apos;hamburger alla bottiglia per il
-            tavolo: il menu completo di Vintage Chupiteria.
+            In attesa delle foto del locale, ecco un'anteprima dei toni e
+            dell'atmosfera di Vineria Stradella.
           </p>
 
-          <div className="menu-nav">
-            {MENU.map((g) => (
-              <a key={g.id} href={`#${g.id}`}>
-                {g.title}
-              </a>
-            ))}
+          <div className="gallery-grid">
+            <div className="gallery-tile t1"><span>Vino</span></div>
+            <div className="gallery-tile t2"><span>Taglieri</span></div>
+            <div className="gallery-tile t3"><span>Aperitivo</span></div>
+            <div className="gallery-tile t4"><span>Atmosfera</span></div>
+            <div className="gallery-tile t5"><span>Cantina</span></div>
+            <div className="gallery-tile t6"><span>Centro Stradella</span></div>
           </div>
+        </div>
+      </section>
 
-          {MENU.map((group) => (
-            <div className="menu-group" id={group.id} key={group.id}>
-              <h3 className="menu-group-title">
-                {group.title.split(" ").slice(0, -1).join(" ")}{" "}
-                <span>{group.title.split(" ").slice(-1)}</span>
-              </h3>
-              <div className="menu-items">
-                {group.items.map((item) => (
-                  <div className="menu-row" key={item.name}>
-                    <span className="menu-row-name">{item.name}</span>
-                    <span className="menu-row-fill" aria-hidden="true" />
-                    <span className="menu-row-price">{item.price}</span>
+      {/* ───────── 7. ORARI ───────── */}
+      <section id="orari" className="section section-alt">
+        <div className="wrap">
+          <span className="eyebrow">Orari</span>
+          <h2 className="section-title">Quando trovarci</h2>
+
+          <div className="info-grid">
+            <div className="info-card">
+              <div className="info-label">Orari di apertura</div>
+              <div className="schedule-list">
+                {SCHEDULE.map((row) => (
+                  <div className="schedule-row" key={row.days}>
+                    <span className="schedule-days">{row.days}</span>
+                    <span className="schedule-hours">{row.hours.join(" · ")}</span>
                   </div>
                 ))}
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ───────── EVENTI ───────── */}
-      <section id="eventi" className="section">
-        <div className="wrap">
-          <span className="eyebrow">Nightlife</span>
-          <h2 className="section-title">Le serate della settimana</h2>
-          <p className="section-text">
-            DJ set, shot night e serate a tema: ecco cosa succede da Vintage
-            Chupiteria.
-          </p>
-
-          <div className="events-list">
-            {EVENTS.map((e) => (
-              <div className="event-row" key={e.title}>
-                <span className="event-day">{e.day}</span>
-                <span className="event-title">{e.title}</span>
-                <span className="event-time">{e.time}</span>
-              </div>
-            ))}
+            <div className="info-card">
+              <div className="info-label">Location</div>
+              <div className="info-value">{ADDRESS}</div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ───────── INFO ───────── */}
-      <section id="info" className="section section-alt">
+      {/* ───────── 8. CONTATTI ───────── */}
+      <section id="contatti" className="section">
         <div className="wrap">
-          <span className="eyebrow">Info</span>
-          <h2 className="section-title">Dove e quando trovarci</h2>
+          <span className="eyebrow">Contatti</span>
+          <h2 className="section-title">Scrivici o chiamaci</h2>
 
           <div className="info-grid">
             <div className="info-card">
-              <div className="info-label">Location</div>
-              <div className="info-value">Stradella (PV), Lombardia</div>
+              <div className="info-label">Telefono</div>
+              <div className="info-value">
+                <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a>
+              </div>
             </div>
             <div className="info-card">
-              <div className="info-label">Orari</div>
+              <div className="info-label">Email</div>
               <div className="info-value">
-                Gio–Sab: 21:00 — 03:00
-                <br />
-                Resto della settimana su richiesta per eventi privati
+                <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ───────── PRENOTAZIONI ───────── */}
-      <section className="section">
+      {/* ───────── 9. PRENOTAZIONE ───────── */}
+      <section className="section section-alt">
         <div className="wrap">
           <span className="eyebrow">Prenota</span>
-          <h2 className="section-title">Stasera si esce a Stradella</h2>
+          <h2 className="section-title">Vieni a trovarci a Stradella</h2>
           <p className="section-text">
-            Scrivici su WhatsApp per prenotare un tavolo, organizzare una serata di
-            gruppo o avere informazioni sui prossimi eventi.
+            Scrivici su WhatsApp per prenotare un tavolo o avere informazioni
+            sulla disponibilità.
           </p>
 
           <div className="book-box">
@@ -494,7 +522,9 @@ export default function Home() {
               Scrivici su WhatsApp
             </a>
             <span className="book-text">
-              Rispondiamo entro pochi minuti, tutti i giorni dal tardo pomeriggio.
+              {ADDRESS}
+              <br />
+              Tel. {PHONE_DISPLAY}
             </span>
           </div>
         </div>
@@ -502,7 +532,7 @@ export default function Home() {
 
       <footer className="footer">
         <div className="wrap">
-          © {new Date().getFullYear()} Vintage Chupiteria — Stradella (PV)
+          © {new Date().getFullYear()} Vineria Stradella — Stradella (PV)
         </div>
       </footer>
 
