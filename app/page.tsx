@@ -25,6 +25,26 @@ const ABOUT_CARDS: ExperienceCard[] = [
   },
 ];
 
+type WineCategory = { name: string; text: string; tone: string };
+
+const WINE_CATEGORIES: WineCategory[] = [
+  {
+    name: "Rossi",
+    text: "Etichette strutturate e proposte più leggere, dal Nord al Sud Italia, per accompagnare un tagliere o una serata intera.",
+    tone: "#8a2e1f",
+  },
+  {
+    name: "Bianchi",
+    text: "Selezione fresca e versatile, perfetta per il calice veloce a pranzo o l'aperitivo serale.",
+    tone: "#a8823f",
+  },
+  {
+    name: "Bollicine",
+    text: "Per chi cerca qualcosa di più mosso: metodo classico e charmat, scelti per ogni occasione.",
+    tone: "#5a6b3f",
+  },
+];
+
 type ScheduleRow = { days: string; hours: string[] };
 
 const SCHEDULE: ScheduleRow[] = [
@@ -34,6 +54,74 @@ const SCHEDULE: ScheduleRow[] = [
   { days: "Lunedì", hours: ["Chiuso"] },
 ];
 
+function VineSprig({ color, flip }: { color: string; flip?: boolean }) {
+  return (
+    <svg
+      width="120"
+      height="60"
+      viewBox="0 0 120 60"
+      fill="none"
+      aria-hidden="true"
+      style={flip ? { transform: "scaleX(-1)" } : undefined}
+    >
+      <path d="M2 30c20-18 40-18 60-4s40 14 56-6" stroke={color} strokeWidth="1.4" fill="none" />
+      <path d="M22 24c-4-6-2-12 4-14" stroke={color} strokeWidth="1.2" fill="none" />
+      <path d="M22 24c2-7 8-10 14-8" stroke={color} strokeWidth="1.2" fill="none" />
+      <circle cx="70" cy="18" r="3" fill={color} opacity="0.85" />
+      <circle cx="76" cy="14" r="3" fill={color} opacity="0.85" />
+      <circle cx="74" cy="22" r="3" fill={color} opacity="0.85" />
+      <circle cx="80" cy="20" r="3" fill={color} opacity="0.85" />
+      <circle cx="78" cy="27" r="3" fill={color} opacity="0.85" />
+      <path d="M48 22c5-8 14-9 19-3" stroke={color} strokeWidth="1.2" fill="none" />
+    </svg>
+  );
+}
+
+function GrapeCluster({ color, size = 26 }: { color: string; size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 28" fill="none" aria-hidden="true">
+      <path d="M12 2v5" stroke={color} strokeWidth="1.3" />
+      <path d="M9 4c-2 0-3 1.5-2.5 3.5" stroke={color} strokeWidth="1.1" fill="none" />
+      <circle cx="12" cy="10" r="3.1" fill={color} />
+      <circle cx="8" cy="13.5" r="3.1" fill={color} opacity="0.92" />
+      <circle cx="16" cy="13.5" r="3.1" fill={color} opacity="0.92" />
+      <circle cx="6" cy="18.5" r="3.1" fill={color} opacity="0.85" />
+      <circle cx="12" cy="19" r="3.1" fill={color} opacity="0.85" />
+      <circle cx="18" cy="18.5" r="3.1" fill={color} opacity="0.85" />
+      <circle cx="12" cy="24" r="3.1" fill={color} opacity="0.78" />
+    </svg>
+  );
+}
+
+function OliveLeaf({ color, size = 22 }: { color: string; size?: number }) {
+  return (
+    <svg width={size} height={size * 0.5} viewBox="0 0 40 20" fill="none" aria-hidden="true">
+      <path
+        d="M2 10c8-9 22-9 36 0-8 9-22 9-36 0Z"
+        stroke={color}
+        strokeWidth="1.3"
+        fill={color}
+        fillOpacity="0.18"
+      />
+      <path d="M4 10h32" stroke={color} strokeWidth="0.9" />
+    </svg>
+  );
+}
+
+function GlassMark({ color, size = 22 }: { color: string; size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M6 3h12l-1.2 8.4A4.8 4.8 0 0 1 12 16a4.8 4.8 0 0 1-4.8-4.6L6 3Z"
+        stroke={color}
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+      <path d="M12 16v5M8.5 21h7" stroke={color} strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -41,273 +129,213 @@ export default function Home() {
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
-          background: #16100d;
-          color: #f3ece3;
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+          background: #f3e9d8;
+          color: #3a2a1c;
+          font-family: Georgia, "Times New Roman", serif;
           -webkit-font-smoothing: antialiased;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
         }
         a { color: inherit; text-decoration: none; }
-        :focus-visible { outline: 2px solid #7a1f2b; outline-offset: 3px; }
+        :focus-visible { outline: 2px solid #b5562f; outline-offset: 3px; }
 
-        .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+        .wrap { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+        .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
 
-        /* ── nav ── */
         .nav {
           position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-          padding: 20px 0;
-          background: linear-gradient(to bottom, rgba(22,16,13,0.92), transparent);
+          padding: 18px 0;
+          background: rgba(243,233,216,0.94);
+          border-bottom: 2px solid #c98a4f;
         }
         .nav-inner { display: flex; align-items: center; justify-content: space-between; }
         .nav-mark {
-          font-family: Georgia, "Times New Roman", serif;
-          font-style: italic;
-          font-weight: 700;
-          font-size: 20px;
-          letter-spacing: 0.02em;
-          color: #fff;
+          display: flex; align-items: center; gap: 10px;
+          font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #3a2a1c;
         }
-        .nav-mark span { color: #c9a13b; }
-        .nav-links { display: none; gap: 28px; }
+        .nav-mark em { font-style: italic; color: #b5562f; font-weight: 400; }
+        .nav-links { display: none; gap: 26px; }
         .nav-link {
-          font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
-          text-transform: uppercase; color: #c2b7aa;
+          font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+          text-transform: uppercase; color: #6b5639;
         }
-        .nav-link:hover { color: #c9a13b; }
+        .nav-link:hover { color: #b5562f; }
         .nav-cta {
           display: inline-flex; align-items: center; gap: 6px;
-          padding: 10px 18px; border-radius: 999px;
-          font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
-          background: #25d366; color: #06150c;
+          padding: 10px 18px; border-radius: 3px;
+          font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+          background: #25d366; color: #0a2e16;
         }
         @media (min-width: 760px) { .nav-links { display: flex; } }
 
-        /* ── hero ── */
         .hero {
-          min-height: 100svh;
-          display: flex; flex-direction: column; justify-content: flex-end;
-          padding: 140px 0 80px;
-          position: relative;
-          overflow: hidden;
+          padding: 130px 0 0;
+          position: relative; overflow: hidden;
           background:
-            radial-gradient(ellipse 70% 50% at 20% 10%, rgba(122,31,43,0.30), transparent 60%),
-            radial-gradient(ellipse 60% 50% at 90% 30%, rgba(201,161,59,0.16), transparent 65%),
-            #16100d;
+            radial-gradient(ellipse 80% 60% at 15% 0%, rgba(181,86,47,0.16), transparent 65%),
+            radial-gradient(ellipse 70% 55% at 95% 30%, rgba(90,107,63,0.14), transparent 60%);
         }
-        .hero-grid {
-          position: absolute; inset: 0; opacity: 0.5; pointer-events: none;
-          background-image:
-            linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-          background-size: 42px 42px;
-          mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
+        .hero-frame {
+          margin: 0 16px;
+          border: 2px solid #b5562f;
+          padding: 56px 40px 0;
+          position: relative;
         }
-        .hero-content { position: relative; z-index: 2; }
+        .hero-frame::before {
+          content: "";
+          position: absolute; inset: 8px;
+          border: 1px solid #c98a4f;
+          pointer-events: none;
+        }
+        .hero-vine-top { display: flex; justify-content: center; margin-bottom: 18px; }
         .hero-eyebrow {
-          font-size: 12px; font-weight: 700; letter-spacing: 0.22em;
-          text-transform: uppercase; color: #c9a13b;
+          text-align: center;
+          font-size: 11px; font-weight: 700; letter-spacing: 0.26em;
+          text-transform: uppercase; color: #b5562f;
         }
         .hero-title {
+          text-align: center;
           font-family: Georgia, "Times New Roman", serif;
-          font-style: italic;
           font-weight: 700;
-          font-size: clamp(42px, 9vw, 96px);
-          line-height: 0.98;
-          letter-spacing: -0.01em;
-          margin-top: 16px;
-          color: #fff;
+          font-size: clamp(40px, 8vw, 86px);
+          line-height: 1.0; letter-spacing: -0.01em;
+          margin-top: 14px; color: #3a2a1c;
         }
-        .hero-title em { color: #7a1f2b; font-style: italic; }
+        .hero-title em { font-style: italic; color: #b5562f; font-weight: 400; }
         .hero-sub {
-          margin-top: 22px; font-size: 17px; line-height: 1.65;
-          color: #c2b7aa; max-width: 480px;
+          text-align: center;
+          margin: 22px auto 0; font-size: 17px; line-height: 1.7;
+          color: #6b5639; max-width: 480px;
         }
-        .hero-tagrow {
-          margin-top: 28px; display: flex; gap: 10px; flex-wrap: wrap;
-        }
+        .hero-tagrow { margin-top: 26px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .pill {
           display: inline-flex; align-items: center;
-          padding: 6px 14px; border-radius: 999px;
-          border: 1px solid rgba(255,255,255,0.16);
+          padding: 6px 14px; border: 1px solid #c98a4f; border-radius: 999px;
           font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-          text-transform: uppercase; color: #f3ece3;
+          text-transform: uppercase; color: #6b5639;
         }
-        .hero-ctas { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+        .hero-ctas { margin-top: 32px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+        .hero-vine-bottom { display: flex; justify-content: center; margin-top: 40px; }
 
-        /* ── buttons ── */
         .btn {
           display: inline-flex; align-items: center; gap: 9px;
-          padding: 15px 26px; border-radius: 999px;
-          font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
+          padding: 14px 26px; border-radius: 3px;
+          font-size: 13px; font-weight: 700; letter-spacing: 0.03em;
           border: 1px solid transparent;
         }
-        .btn-wa { background: #25d366; color: #06150c; }
-        .btn-outline { border-color: rgba(255,255,255,0.22); color: #f3ece3; }
-        .btn-outline:hover { border-color: #c9a13b; color: #c9a13b; }
+        .btn-wa { background: #25d366; color: #0a2e16; }
+        .btn-outline { border-color: #3a2a1c; color: #3a2a1c; }
+        .btn-outline:hover { border-color: #b5562f; color: #b5562f; }
 
-        /* ── sections ── */
-        .section { padding: 88px 0; position: relative; }
-        .section-alt { background: #1f1712; }
+        .section { padding: 80px 0; position: relative; }
+        .section-alt { background: #ebd9bc; }
         .eyebrow {
           font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
-          text-transform: uppercase; color: #7a1f2b;
+          text-transform: uppercase; color: #b5562f;
         }
         .section-title {
           font-family: Georgia, "Times New Roman", serif;
-          font-style: italic;
-          font-weight: 700;
-          font-size: clamp(28px, 4vw, 44px);
-          line-height: 1.08;
-          margin-top: 12px;
-          color: #fff;
+          font-weight: 700; font-size: clamp(26px, 3.6vw, 40px);
+          line-height: 1.12; margin-top: 10px; color: #3a2a1c;
         }
-        .section-text {
-          margin-top: 18px; font-size: 16px; line-height: 1.75;
-          color: #c2b7aa; max-width: 600px;
-        }
+        .section-title em { font-style: italic; color: #b5562f; font-weight: 400; }
+        .section-text { margin-top: 16px; font-size: 16px; line-height: 1.8; color: #6b5639; max-width: 600px; }
 
-        /* ── about / esperienza (griglia 3 card) ── */
-        .about-grid {
-          margin-top: 48px;
-          display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-          background: rgba(255,255,255,0.08);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 10px;
-          overflow: hidden;
-        }
-        .about-card { background: #16100d; padding: 30px 26px; }
-        .about-card h3 {
-          font-family: Georgia, serif; font-style: italic; font-size: 19px;
-          color: #c9a13b; margin-bottom: 8px;
-        }
-        .about-card p { font-size: 14px; line-height: 1.6; color: #c2b7aa; }
+        .about-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .about-card { padding: 0; }
+        .about-card-icon { margin-bottom: 14px; }
+        .about-card h3 { font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #3a2a1c; margin-bottom: 8px; }
+        .about-card p { font-size: 14px; line-height: 1.7; color: #6b5639; }
 
-        /* ── menu / selezione vini & taglieri (stesso pattern menu-group, senza prezzi) ── */
-        .menu-nav {
-          display: flex; gap: 10px; flex-wrap: wrap; margin-top: 44px; margin-bottom: 48px;
+        .wine-frame { margin-top: 44px; border: 2px solid #5a6b3f; padding: 36px 30px; position: relative; }
+        .wine-frame::before {
+          content: ""; position: absolute; inset: 7px;
+          border: 1px solid #9aa87a; pointer-events: none;
         }
-        .menu-nav a {
-          padding: 9px 16px; border-radius: 999px;
-          border: 1px solid rgba(255,255,255,0.15);
-          font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
-          text-transform: uppercase; color: #c2b7aa;
-        }
-        .menu-nav a:hover { border-color: #7a1f2b; color: #7a1f2b; }
+        .wine-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+        .wine-card { padding: 10px 22px; border-left: 1px dotted #c9a876; }
+        .wine-card:first-child { border-left: none; padding-left: 0; }
+        .wine-card-icon { margin-bottom: 12px; }
+        .wine-card h3 { font-family: Georgia, serif; font-weight: 700; font-size: 19px; color: #3a2a1c; margin-bottom: 8px; }
+        .wine-card p { font-size: 14px; line-height: 1.7; color: #6b5639; }
+        .wine-vine-row { display: flex; justify-content: center; margin-top: 28px; }
 
-        .menu-group { padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.1); }
-        .menu-group:first-of-type { border-top: none; padding-top: 0; }
-        .menu-group-title {
-          font-family: Georgia, serif; font-style: italic; font-weight: 700;
-          font-size: 26px; color: #fff; margin-bottom: 18px;
+        .chalk-box {
+          margin-top: 44px; border: 2px solid #b5562f; padding: 38px;
+          position: relative; background: rgba(181,86,47,0.04);
         }
-        .menu-group-title span { color: #7a1f2b; }
-        .menu-group-text {
-          font-size: 16px; line-height: 1.75; color: #c2b7aa; max-width: 640px;
+        .chalk-box::before, .chalk-box::after {
+          content: ""; position: absolute; width: 18px; height: 18px; border: 2px solid #b5562f;
         }
+        .chalk-box::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .chalk-box::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+        .chalk-title { font-size: 12px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: #b5562f; margin-bottom: 14px; }
+        .chalk-text { font-size: 17px; line-height: 1.8; color: #3a2a1c; max-width: 640px; }
 
-        /* ── eventi / esperienza extra (riusa lo stesso pattern a righe) ── */
-        .events-list { margin-top: 44px; display: flex; flex-direction: column; }
+        .events-list { margin-top: 40px; display: flex; flex-direction: column; }
         .event-row {
-          display: grid; grid-template-columns: 110px 1fr auto;
-          align-items: center; gap: 24px;
-          padding: 26px 0; border-top: 1px solid rgba(255,255,255,0.1);
+          display: grid; grid-template-columns: 130px 1fr auto;
+          align-items: center; gap: 24px; padding: 20px 0; border-top: 1px solid #c9a876;
         }
-        .events-list .event-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .event-day {
-          font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
-          text-transform: uppercase; color: #7a1f2b;
-        }
-        .event-title {
-          font-family: Georgia, serif; font-style: italic; font-weight: 700;
-          font-size: clamp(18px, 2.4vw, 24px); color: #fff;
-        }
-        .event-time { font-size: 13px; color: #c2b7aa; white-space: nowrap; }
+        .events-list .event-row:last-child { border-bottom: 1px solid #c9a876; }
+        .event-day { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #b5562f; }
+        .event-title { font-family: Georgia, serif; font-weight: 700; font-size: clamp(17px, 2.2vw, 22px); color: #3a2a1c; }
+        .event-time { font-size: 12px; color: #6b5639; white-space: nowrap; }
 
-        /* ── galleria (pattern grafico CSS, nessuna immagine reale) ── */
-        .gallery-grid {
-          margin-top: 44px;
-          display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-        }
-        .gallery-tile {
-          aspect-ratio: 4 / 5;
-          border-radius: 10px;
-          border: 1px solid rgba(255,255,255,0.1);
+        .gallery-strip { margin-top: 44px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .gallery-frame {
+          aspect-ratio: 3 / 4; border: 2px solid #3a2a1c;
+          background: #f3e9d8; display: flex; align-items: center; justify-content: center;
           position: relative;
-          overflow: hidden;
-          display: flex; align-items: flex-end;
-          padding: 16px;
         }
-        .gallery-tile span {
-          font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-          text-transform: uppercase; color: rgba(243,236,227,0.7);
-        }
-        .gallery-tile.t1 { background: radial-gradient(ellipse 90% 70% at 30% 20%, rgba(122,31,43,0.55), transparent 70%), #1f1712; }
-        .gallery-tile.t2 { background: radial-gradient(ellipse 90% 70% at 70% 30%, rgba(201,161,59,0.35), transparent 70%), #1f1712; }
-        .gallery-tile.t3 { background: radial-gradient(ellipse 90% 70% at 50% 80%, rgba(122,31,43,0.40), transparent 70%), #1f1712; }
-        .gallery-tile.t4 { background: radial-gradient(ellipse 90% 70% at 20% 80%, rgba(201,161,59,0.30), transparent 70%), #1f1712; }
-        .gallery-tile.t5 { background: radial-gradient(ellipse 90% 70% at 80% 20%, rgba(122,31,43,0.45), transparent 70%), #1f1712; }
-        .gallery-tile.t6 { background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(201,161,59,0.40), transparent 70%), #1f1712; }
+        .gallery-frame::before { content: ""; position: absolute; inset: 6px; border: 1px solid #c9a876; }
 
-        /* ── orari / info ── */
         .info-grid {
-          margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
-          background: rgba(255,255,255,0.08);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 10px; overflow: hidden;
+          margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+          background: #c9a876; border: 1px solid #c9a876;
         }
-        .info-card { background: #1f1712; padding: 28px 26px; }
-        .info-label {
-          font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-          text-transform: uppercase; color: #c9a13b; margin-bottom: 8px;
-        }
-        .info-value { font-size: 15px; line-height: 1.7; color: #f3ece3; }
+        .info-card { background: #f3e9d8; padding: 26px 24px; }
+        .section-alt .info-card { background: #ebd9bc; }
+        .info-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #b5562f; margin-bottom: 10px; }
+        .info-value { font-size: 15px; line-height: 1.8; color: #3a2a1c; }
 
         .schedule-list { display: flex; flex-direction: column; gap: 0; }
-        .schedule-row {
-          display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-          padding: 8px 0;
-        }
-        .schedule-row + .schedule-row { border-top: 1px dashed rgba(255,255,255,0.12); }
-        .schedule-days { font-size: 13px; font-weight: 700; color: #f3ece3; }
-        .schedule-hours { font-size: 13px; color: #c2b7aa; text-align: right; }
+        .schedule-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 8px 0; }
+        .schedule-row + .schedule-row { border-top: 1px dotted #c9a876; }
+        .schedule-days { font-size: 13px; font-weight: 700; color: #3a2a1c; }
+        .schedule-hours { font-size: 13px; color: #6b5639; text-align: right; }
 
-        /* ── prenota ── */
         .book-box {
-          margin-top: 44px;
-          display: flex; flex-wrap: wrap; align-items: center; gap: 26px;
-          padding: 34px; border-radius: 12px;
-          border: 1px solid rgba(122,31,43,0.35);
-          background: radial-gradient(ellipse 80% 100% at 0% 0%, rgba(122,31,43,0.18), transparent 70%), #1f1712;
+          margin-top: 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 26px;
+          padding: 36px; border: 2px solid #b5562f; background: #f3e9d8;
         }
-        .book-text { font-size: 14px; color: #c2b7aa; line-height: 1.7; }
+        .book-text { font-size: 13px; color: #6b5639; line-height: 1.8; }
 
-        /* ── footer ── */
-        .footer {
-          border-top: 1px solid rgba(255,255,255,0.1);
-          padding: 30px 0; text-align: center;
-          font-size: 12px; color: #7a7064;
-        }
+        .footer { border-top: 2px solid #c98a4f; padding: 26px 0; text-align: center; font-size: 12px; color: #8a7355; }
 
         .float-wa {
           position: fixed; bottom: 22px; right: 22px; z-index: 60;
-          width: 56px; height: 56px; border-radius: 50%;
+          width: 54px; height: 54px; border-radius: 50%;
           background: #25d366; display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 8px 26px rgba(0,0,0,0.5);
+          box-shadow: 0 8px 22px rgba(58,42,28,0.35);
         }
 
+        @media (max-width: 860px) { .hero-frame { padding: 44px 24px 0; } }
         @media (max-width: 720px) {
           .about-grid { grid-template-columns: 1fr; }
+          .wine-grid { grid-template-columns: 1fr; gap: 22px; }
+          .wine-card { border-left: none; padding-left: 0; }
           .info-grid { grid-template-columns: 1fr; }
-          .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-          .event-row { grid-template-columns: 1fr; gap: 8px; }
+          .gallery-strip { grid-template-columns: repeat(2, 1fr); }
+          .event-row { grid-template-columns: 1fr; gap: 6px; }
           .event-time { text-align: left; }
         }
       `}</style>
 
-      {/* ───────── NAV ───────── */}
-      <nav className="nav">
+      <nav className="nav sans">
         <div className="wrap nav-inner">
           <span className="nav-mark">
-            Vineria <span>Stradella</span>
+            <GrapeCluster color="#b5562f" size={20} />
+            Vineria <em>Stradella</em>
           </span>
           <div className="nav-links">
             <a className="nav-link" href="#about">Chi siamo</a>
@@ -316,59 +344,57 @@ export default function Home() {
             <a className="nav-link" href="#orari">Orari</a>
             <a className="nav-link" href="#contatti">Contatti</a>
           </div>
-          <a className="nav-cta" href={WA_HREF} target="_blank" rel="noopener noreferrer">
-            Prenota
-          </a>
+          <a className="nav-cta" href={WA_HREF} target="_blank" rel="noopener noreferrer">Prenota</a>
         </div>
       </nav>
 
-      {/* ───────── 1. HERO ───────── */}
       <header className="hero">
-        <div className="hero-grid" aria-hidden="true" />
-        <div className="wrap hero-content">
-          <p className="hero-eyebrow">Stradella (PV) — Lombardia</p>
-          <h1 className="hero-title">
-            Vineria
-            <br />
-            <em>Stradella</em>
-          </h1>
-          <p className="hero-sub">
-            Wine shop &amp; more: enoteca, aperitivi e cena informale nel cuore di
-            Stradella. Un buon calice e un tagliere, senza fretta.
-          </p>
-          <div className="hero-tagrow">
-            <span className="pill">Enoteca</span>
-            <span className="pill">Aperitivi</span>
-            <span className="pill">Taglieri</span>
-            <span className="pill">Cena informale</span>
-          </div>
-          <div className="hero-ctas">
-            <a className="btn btn-wa" href={WA_HREF} target="_blank" rel="noopener noreferrer">
-              <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-                <path d="M16.04 3C9.37 3 3.96 8.38 3.96 15c0 2.22.6 4.3 1.66 6.09L4 29l8.1-2.55a12.1 12.1 0 0 0 3.94.66c6.67 0 12.08-5.38 12.08-12s-5.41-12-12.08-12Zm0 21.8c-1.3 0-2.58-.34-3.7-.99l-.27-.16-4.8 1.51 1.55-4.62-.18-.28a9.7 9.7 0 0 1-1.53-5.26c0-5.4 4.43-9.78 9.93-9.78 5.5 0 9.96 4.39 9.96 9.78 0 5.4-4.46 9.8-9.96 9.8Zm5.46-7.33c-.3-.15-1.77-.86-2.04-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.95 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.46-.88-.78-1.47-1.74-1.65-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.07 2.86 1.22 3.06c.15.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.7.62.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z" />
-              </svg>
-              Prenota su WhatsApp
-            </a>
-            <a className="btn btn-outline" href="#vini">Scopri la cantina</a>
+        <div className="wrap">
+          <div className="hero-frame">
+            <div className="hero-vine-top"><VineSprig color="#5a6b3f" /></div>
+            <p className="hero-eyebrow sans">Stradella (PV) — Lombardia</p>
+            <h1 className="hero-title">Vineria <em>Stradella</em></h1>
+            <p className="hero-sub">
+              Wine shop &amp; more: enoteca, aperitivi e cena informale nel cuore
+              di Stradella. Un buon calice e un tagliere, senza fretta.
+            </p>
+            <div className="hero-tagrow sans">
+              <span className="pill">Enoteca</span>
+              <span className="pill">Aperitivi</span>
+              <span className="pill">Taglieri</span>
+              <span className="pill">Cena informale</span>
+            </div>
+            <div className="hero-ctas sans">
+              <a className="btn btn-wa" href={WA_HREF} target="_blank" rel="noopener noreferrer">
+                <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+                  <path d="M16.04 3C9.37 3 3.96 8.38 3.96 15c0 2.22.6 4.3 1.66 6.09L4 29l8.1-2.55a12.1 12.1 0 0 0 3.94.66c6.67 0 12.08-5.38 12.08-12s-5.41-12-12.08-12Zm0 21.8c-1.3 0-2.58-.34-3.7-.99l-.27-.16-4.8 1.51 1.55-4.62-.18-.28a9.7 9.7 0 0 1-1.53-5.26c0-5.4 4.43-9.78 9.93-9.78 5.5 0 9.96 4.39 9.96 9.78 0 5.4-4.46 9.8-9.96 9.8Zm5.46-7.33c-.3-.15-1.77-.86-2.04-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.95 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.46-.88-.78-1.47-1.74-1.65-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.07 2.86 1.22 3.06c.15.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.7.62.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z" />
+                </svg>
+                Prenota su WhatsApp
+              </a>
+              <a className="btn btn-outline" href="#vini">Scopri la cantina</a>
+            </div>
+            <div className="hero-vine-bottom"><VineSprig color="#b5562f" flip /></div>
           </div>
         </div>
       </header>
 
-      {/* ───────── 2. CHI SIAMO ───────── */}
       <section id="about" className="section">
         <div className="wrap">
-          <span className="eyebrow">Chi siamo</span>
-          <h2 className="section-title">Un'enoteca nel centro di Stradella</h2>
+          <span className="eyebrow sans">Chi siamo</span>
+          <h2 className="section-title">Un'<em>enoteca</em> nel centro di Stradella</h2>
           <p className="section-text">
-            Vineria Stradella è un wine shop &amp; more in Corso XXVI Aprile: un
-            locale raccolto dove fermarsi per un calice durante il giorno o per
-            un aperitivo conviviale la sera. Selezione di etichette, taglieri
-            curati e un servizio attento sono il cuore dell'esperienza.
+            Vineria Stradella è un wine shop &amp; more in Corso XXVI Aprile: un locale raccolto
+            dove fermarsi per un calice durante il giorno o per un aperitivo conviviale la sera.
+            Selezione di etichette, taglieri curati e un servizio attento sono il cuore dell'esperienza.
           </p>
-
           <div className="about-grid">
-            {ABOUT_CARDS.map((c) => (
+            {ABOUT_CARDS.map((c, i) => (
               <div className="about-card" key={c.title}>
+                <div className="about-card-icon">
+                  {i === 0 && <GrapeCluster color="#b5562f" />}
+                  {i === 1 && <OliveLeaf color="#5a6b3f" />}
+                  {i === 2 && <GlassMark color="#a8823f" />}
+                </div>
                 <h3>{c.title}</h3>
                 <p>{c.text}</p>
               </div>
@@ -377,47 +403,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── 3. SELEZIONE VINI ───────── */}
       <section id="vini" className="section section-alt">
         <div className="wrap">
-          <span className="eyebrow">Selezione vini</span>
-          <h2 className="section-title">La cantina di Vineria Stradella</h2>
+          <span className="eyebrow sans">Selezione vini</span>
+          <h2 className="section-title">La <em>cantina</em> di Vineria Stradella</h2>
           <p className="section-text">
-            Una carta dei vini pensata per accompagnare ogni momento della
-            giornata, dal calice veloce all'ora di pranzo alla bottiglia
-            condivisa la sera. Etichette selezionate con attenzione, accanto a
-            proposte sfuse per chi cerca un buon bicchiere senza troppi fronzoli.
+            Una carta dei vini pensata per accompagnare ogni momento della giornata,
+            dal calice veloce all'ora di pranzo alla bottiglia condivisa la sera.
           </p>
+          <div className="wine-frame">
+            <div className="wine-grid">
+              {WINE_CATEGORIES.map((w) => (
+                <div className="wine-card" key={w.name}>
+                  <div className="wine-card-icon"><GlassMark color={w.tone} /></div>
+                  <h3>{w.name}</h3>
+                  <p>{w.text}</p>
+                </div>
+              ))}
+            </div>
+            <div className="wine-vine-row"><VineSprig color="#5a6b3f" /></div>
+          </div>
         </div>
       </section>
 
-      {/* ───────── 4. APERITIVI E TAGLIERI ───────── */}
       <section id="aperitivi" className="section">
         <div className="wrap">
-          <span className="eyebrow">Aperitivi &amp; taglieri</span>
-          <h2 className="section-title">L'aperitivo, fatto con calma</h2>
-          <p className="section-text">
-            Taglieri di salumi e formaggi selezionati, pensati per accompagnare
-            un calice di vino in buona compagnia. L'aperitivo da Vineria
-            Stradella è un momento conviviale, senza buffet impersonali: solo
-            prodotti curati e tempo per godersela.
-          </p>
+          <span className="eyebrow sans">Aperitivi &amp; taglieri</span>
+          <h2 className="section-title">L'aperitivo, fatto con <em>calma</em></h2>
+          <div className="chalk-box">
+            <div className="chalk-title sans">Ogni giorno, dal tardo pomeriggio</div>
+            <p className="chalk-text">
+              Taglieri di salumi e formaggi selezionati, pensati per accompagnare un calice di vino
+              in buona compagnia. L'aperitivo da Vineria Stradella è un momento conviviale, senza
+              buffet impersonali: solo prodotti curati e tempo per godersela.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* ───────── 5. ESPERIENZA DEL LOCALE ───────── */}
       <section className="section section-alt">
         <div className="wrap">
-          <span className="eyebrow">L'esperienza</span>
-          <h2 className="section-title">Perché tornare da Vineria Stradella</h2>
+          <span className="eyebrow sans">L'esperienza</span>
+          <h2 className="section-title">Perché tornare da <em>Vineria Stradella</em></h2>
           <p className="section-text">
-            Chi ci ha visitato racconta di un ambiente accogliente e di un
-            servizio attento, in un locale piccolo ma curato nei dettagli — il
-            posto giusto per un aperitivo tra amici o una cena informale senza
-            fretta.
+            Chi ci ha visitato racconta di un ambiente accogliente e di un servizio attento,
+            in un locale piccolo ma curato nei dettagli — il posto giusto per un aperitivo
+            tra amici o una cena informale senza fretta.
           </p>
-
-          <div className="events-list">
+          <div className="events-list sans">
             <div className="event-row">
               <span className="event-day">Servizio</span>
               <span className="event-title">Personale attento e disponibile</span>
@@ -437,34 +470,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── 6. GALLERIA ───────── */}
       <section className="section">
         <div className="wrap">
-          <span className="eyebrow">Galleria</span>
-          <h2 className="section-title">Un'idea dell'atmosfera</h2>
+          <span className="eyebrow sans">Galleria</span>
+          <h2 className="section-title">Un'idea dell'<em>atmosfera</em></h2>
           <p className="section-text">
-            In attesa delle foto del locale, ecco un'anteprima dei toni e
-            dell'atmosfera di Vineria Stradella.
+            In attesa delle foto del locale, ecco quattro piccole incisioni che raccontano
+            lo spirito di Vineria Stradella.
           </p>
-
-          <div className="gallery-grid">
-            <div className="gallery-tile t1"><span>Vino</span></div>
-            <div className="gallery-tile t2"><span>Taglieri</span></div>
-            <div className="gallery-tile t3"><span>Aperitivo</span></div>
-            <div className="gallery-tile t4"><span>Atmosfera</span></div>
-            <div className="gallery-tile t5"><span>Cantina</span></div>
-            <div className="gallery-tile t6"><span>Centro Stradella</span></div>
+          <div className="gallery-strip">
+            <div className="gallery-frame"><GrapeCluster color="#b5562f" size={32} /></div>
+            <div className="gallery-frame"><OliveLeaf color="#5a6b3f" size={32} /></div>
+            <div className="gallery-frame"><GlassMark color="#a8823f" size={30} /></div>
+            <div className="gallery-frame"><VineSprig color="#b5562f" /></div>
           </div>
         </div>
       </section>
 
-      {/* ───────── 7. ORARI ───────── */}
       <section id="orari" className="section section-alt">
         <div className="wrap">
-          <span className="eyebrow">Orari</span>
-          <h2 className="section-title">Quando trovarci</h2>
-
-          <div className="info-grid">
+          <span className="eyebrow sans">Orari</span>
+          <h2 className="section-title">Quando <em>trovarci</em></h2>
+          <div className="info-grid sans">
             <div className="info-card">
               <div className="info-label">Orari di apertura</div>
               <div className="schedule-list">
@@ -484,60 +511,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── 8. CONTATTI ───────── */}
       <section id="contatti" className="section">
         <div className="wrap">
-          <span className="eyebrow">Contatti</span>
-          <h2 className="section-title">Scrivici o chiamaci</h2>
-
-          <div className="info-grid">
+          <span className="eyebrow sans">Contatti</span>
+          <h2 className="section-title">Scrivici o <em>chiamaci</em></h2>
+          <div className="info-grid sans">
             <div className="info-card">
               <div className="info-label">Telefono</div>
-              <div className="info-value">
-                <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a>
-              </div>
+              <div className="info-value"><a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a></div>
             </div>
             <div className="info-card">
               <div className="info-label">Email</div>
-              <div className="info-value">
-                <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-              </div>
+              <div className="info-value"><a href={`mailto:${EMAIL}`}>{EMAIL}</a></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ───────── 9. PRENOTAZIONE ───────── */}
       <section className="section section-alt">
         <div className="wrap">
-          <span className="eyebrow">Prenota</span>
-          <h2 className="section-title">Vieni a trovarci a Stradella</h2>
+          <span className="eyebrow sans">Prenota</span>
+          <h2 className="section-title">Vieni a trovarci a <em>Stradella</em></h2>
           <p className="section-text">
-            Scrivici su WhatsApp per prenotare un tavolo o avere informazioni
-            sulla disponibilità.
+            Scrivici su WhatsApp per prenotare un tavolo o avere informazioni sulla disponibilità.
           </p>
-
-          <div className="book-box">
+          <div className="book-box sans">
             <a className="btn btn-wa" href={WA_HREF} target="_blank" rel="noopener noreferrer">
               Scrivici su WhatsApp
             </a>
-            <span className="book-text">
-              {ADDRESS}
-              <br />
-              Tel. {PHONE_DISPLAY}
-            </span>
+            <span className="book-text">{ADDRESS}<br />Tel. {PHONE_DISPLAY}</span>
           </div>
         </div>
       </section>
 
-      <footer className="footer">
+      <footer className="footer sans">
         <div className="wrap">
           © {new Date().getFullYear()} Vineria Stradella — Stradella (PV)
         </div>
       </footer>
 
       <a className="float-wa" href={WA_HREF} target="_blank" rel="noopener noreferrer" aria-label="Scrivici su WhatsApp">
-        <svg width="26" height="26" viewBox="0 0 32 32" fill="#06150c" aria-hidden="true">
+        <svg width="25" height="25" viewBox="0 0 32 32" fill="#0a2e16" aria-hidden="true">
           <path d="M16.04 3C9.37 3 3.96 8.38 3.96 15c0 2.22.6 4.3 1.66 6.09L4 29l8.1-2.55a12.1 12.1 0 0 0 3.94.66c6.67 0 12.08-5.38 12.08-12s-5.41-12-12.08-12Zm0 21.8c-1.3 0-2.58-.34-3.7-.99l-.27-.16-4.8 1.51 1.55-4.62-.18-.28a9.7 9.7 0 0 1-1.53-5.26c0-5.4 4.43-9.78 9.93-9.78 5.5 0 9.96 4.39 9.96 9.78 0 5.4-4.46 9.8-9.96 9.8Zm5.46-7.33c-.3-.15-1.77-.86-2.04-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.95 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.46-.88-.78-1.47-1.74-1.65-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.07 2.86 1.22 3.06c.15.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.7.62.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z" />
         </svg>
       </a>
